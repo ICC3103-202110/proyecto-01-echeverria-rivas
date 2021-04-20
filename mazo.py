@@ -11,15 +11,15 @@ class Deck:
 
 
     
-   ''' @property
-    def sdeck(self):
-        print('pasa por property')
-        return self.__deck
+   #''' @property
+    #def sdeck(self):
+     #   print('pasa por property')
+      #  return self.__deck
 
-    @sdeck.setter
-    def sdeck(self,listarandom):
-        print('entro al setter')
-        self.__deck=listarandom'''
+    #@sdeck.setter
+    #def sdeck(self,listarandom):
+     #   print('entro al setter')
+      #  self.__deck=listarandom'''
 
 
 

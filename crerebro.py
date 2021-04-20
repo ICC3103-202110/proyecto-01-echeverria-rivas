@@ -34,9 +34,19 @@ class Brain:
 
 
 
+    def Take_cards(self):
+        carta_tomada=self.__Deck[0]
 
+        self.__diccionario['cards'].append(carta_tomada)
 
+        self.__Deck.pop(0)
+        
+        random.shuffle(self.__Deck)
 
+        return [self.__diccionario,self.__Deck]
 
-
-    def Take_cards(self,amount):
+    def Lost_card(self,card):
+        self.__diccionario['lostcards'].append(self.__diccionario['cards'][card])
+        self.__diccionario['cards'].pop(card)
+        self.__diccionario['influence']+= -1
+        return self.__diccionario

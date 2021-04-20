@@ -4,21 +4,21 @@ class Actions:
         self.__D_acusador = D_acusador
         self.__deck = deck
     
-    def Ingreso(self):
+    #def Ingreso(self):
         
-    def Ayuda_Extrangera(self):
+   # def Ayuda_Extrangera(self):
 
-    def Golpe(self):
+   # def Golpe(self):
 
-    def Duque (self):
+   ## def Duque (self):
 
-    def Embajador(self):
+   # def Embajador(self):
 
-    def Asesino (self):
+  #  def Asesino (self):
     
-    def Embajador (self):
+   # def Embajador (self):
 
-    def Capitan(self):
+  #  def Capitan(self):
 
 
 
