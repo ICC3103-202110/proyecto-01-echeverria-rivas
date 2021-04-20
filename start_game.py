@@ -10,7 +10,8 @@ class Start_Game:
     def print_menu(self): #Menu Turno
         print("")
         for i in self.__Lplayers:
-            print(i["name"],"Cartas:", len(i["cards"]), "Cartas Perdidas:",i["lostcards"], "Monedas:",i["coins"])
+            print(i["name"],"Cartas:", len(i["cards"]), "Cartas Perdidas:",i["lostcards"],
+             "Monedas:",i["coins"],"Influencia:",i["influence"])
         print("")
         print("Selecione que quiere hacer: ")
         print("1. Ejecutar una accion")
