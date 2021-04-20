@@ -1,3 +1,5 @@
+from mazo import *
+
 class Player:
     def __init__(self, name):
         self.__name = name

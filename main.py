@@ -5,7 +5,9 @@ from mazo import *
 
 
 
-shuffled_deck=Deck([]).shuffle()
+shuffled_deck=Deck(["Duke", "Duke", "Duke", "Assassin", "Assassin", "Assassin", 
+        "Captain", "Captain", "Captain", "Ambassador", "Ambassador", "Ambassador", 
+        "Contessa", "Contessa", "Contessa"]).shuffle()
 
 
 
@@ -27,6 +29,6 @@ for i in LPlayers: #Dicionario con cartas para cada jugador
     shuffled_deck.pop(0)
     i["cards"].append(c)
 
-print(LPlayers)
+
 
 Start_Game(shuffled_deck, LPlayers, 0).game() 

@@ -2,9 +2,7 @@ from numpy import *
 
 class Deck:
     def __init__(self,deck):
-        self.__deck=["Duke", "Duke", "Duke", "Assassin", "Assassin", "Assassin", 
-        "Captain", "Captain", "Captain", "Ambassador", "Ambassador", "Ambassador", 
-        "Contessa", "Contessa", "Contessa"]
+        self.__deck=deck
 
 
     def shuffle(self):
@@ -13,7 +11,7 @@ class Deck:
 
 
     
-    @property
+   ''' @property
     def sdeck(self):
         print('pasa por property')
         return self.__deck
@@ -21,7 +19,7 @@ class Deck:
     @sdeck.setter
     def sdeck(self,listarandom):
         print('entro al setter')
-        self.__deck=listarandom
+        self.__deck=listarandom'''
 
 
 
