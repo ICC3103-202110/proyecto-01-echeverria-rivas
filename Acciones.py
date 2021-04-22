@@ -28,12 +28,12 @@ class Actions:
         return [self.__D_acusador['coins'],self.__D_acusado]
 
 
-    def Duque (self):
+    def Tax (self):
         self.__D_acusador['coins'] = Brain(self.__deck,self.__D_acusador).Change_coins('+',3)
         return self.__D_acusador['coins']
 
    
-    def Embajador(self):
+    def Cambio(self):
         EM= Brain(self.__deck, self.__D_acusador).Take_cards()
         self.__D_acusador=EM[0]
         slef.__deck=EM[1]
@@ -79,9 +79,6 @@ class Actions:
 
 
 
-
-
-
     def Asesino(self):
         nd = Brain(self.__deck,self.__D_acusador).Change_coins('-',3)
         self.__D_acusador['coins'] = nd
@@ -94,17 +91,14 @@ class Actions:
         self.__D_acusado = nda
         return [self.__D_acusador['coins'],self.__D_acusado]
 
-    
-
-
 
     def Extorison (self):
-    self.__D_acusador['coins']=Brain(self.__deck,self.__D_acusador).Change_coins("+",2)
-    self.__D_acusado['coins']=Brain(self.__deck,self.__D_acusado).Change_coins('-',2)
-    return [self.__D_acusado,self.__D_acusador]
+        self.__D_acusador['coins']=Brain(self.__deck,self.__D_acusador).Change_coins("+",2)
+        self.__D_acusado['coins']=Brain(self.__deck,self.__D_acusado).Change_coins('-',2)
+        return [self.__D_acusado,self.__D_acusador]
         
 
-  #  def Capitan(self):
+    
 
 
 

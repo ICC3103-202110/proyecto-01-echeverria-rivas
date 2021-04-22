@@ -26,8 +26,8 @@ class Start_Game:
         print('3. Coup')
         print('4. Duke')
         print('5. Assassinate')
-        print('6. Exchange')
-        print('7. Steal')
+        print('6. Extorsion')
+        print('7. Change')
         return int(input())
     
     def chose_player(self):
@@ -57,19 +57,23 @@ class Start_Game:
            
            
            
-            if selection == 1:
+            if selection == 1:#ingresos
+                print('El jugador ',self.__Lplayers[self.__turno],"ha usado 'Ingresos'(+1 moneda)")
                 nd = Actions("",self.__Lplayers[self.__turno],self.__Maze).Ingreso()
                 self.__Lplayers[self.__turno]['coins'] = nd #cambio de moneda del jugador de turno
             
             
             
-            if selection == 2:
+            if selection == 2:#ayuda extranjera
+                print('El jugador ',self.__Lplayers[self.__turno],"ha usado 'Ayuda Extranjera'(+1 moneda)")
+
+
                 nd = Actions("",self.__Lplayers[self.__turno],self.__Maze).Ayuda_Extrangera()
                 self.__Lplayers[self.__turno]['coins'] = nd #cambio de moneda del jugador de turno
            
            
            
-            if selection == 3:
+            if selection == 3:#golpe
                 if self.__Lplayers[self.__turno]["coins"] >= 7:
                     c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
                     coup = Actions(self.__Lplayers[c-1],self.__Lplayers[self.__turno],self.__Maze).Golpe()
@@ -83,12 +87,12 @@ class Start_Game:
             
             
             
-            if selection == 4:
-                nd = Actions("",self.__Lplayers[self.__turno],self.__Maze).Ayuda_Extrangera()
+            if selection == 4:#impuesto
+                nd = Actions("",self.__Lplayers[self.__turno],self.__Maze).Tax()
                 self.__Lplayers[self.__turno]['coins'] = nd #cambio de moneda del jugador de turno
             
             
-            if selection == 5:
+            if selection == 5:#asesino
 
 
                 if self.__Lplayers[self.__turno]["coins"] >= 3:
@@ -107,16 +111,16 @@ class Start_Game:
 
 
            
-            if selection == 6:
-            nd=Actions("",self.__Lplayers[self.turno],self.__Maze).Embajador()
+            if selection == 6:#extorsion
+            nd=Actions("",self.__Lplayers[self.turno],self.__Maze).Extorison()
             self.__Lplayers[self.__turno]= nd[0]
             self.__Maze=nd[1]
             
             
-            if selection == 7:
+            if selection == 7:#Cambio
 
             c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
-            extorsion=Actions(self.__Lplayers[c-1],self.__Lplayers[self.__turno],self.__Maze).Extorsion()
+            extorsion=Actions(self.__Lplayers[c-1],self.__Lplayers[self.__turno],self.__Maze).Cambio()
             self.__Lplayers[c-1]=extorsion[0]
             self.__Lplayers[self.__turno]=extorsion[1]
 
