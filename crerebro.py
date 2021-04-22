@@ -12,13 +12,9 @@ class Brain:
     def Change_coins (self,operation,amount):
         if operation=='+':
             self.__diccionario['coins']+=int(amount)
-
-
-
-
         if operation=='-':
             self.__diccionario['coins']+= int(amount)*-1
-        return self.__diccionario
+        return self.__diccionario['coins']
 
     def Deposit_cards(self,card):
         carta_retirada=self.__diccionario['cards'][card]

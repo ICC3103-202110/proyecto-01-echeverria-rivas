@@ -1,11 +1,11 @@
 from numpy import *
+from crerebro import *
 
 class Start_Game:
     def __init__(self,Maze,Lplayers,turno):
         self.__Maze = Maze
         self.__Lplayers = Lplayers
         self.__turno = 0
-        
     
     def print_menu(self): #Menu Turno
         print("")
@@ -19,16 +19,109 @@ class Start_Game:
         print("3. Ver log")
         return int(input())
 
+    def print_actions(self):
+        print('\nSelecciona una opcion:')
+        print('1. Income')
+        print('2. Foreign Aid')
+        print('3. Coup')
+        print('4. Duke')
+        print('5. Assassinate')
+        print('6. Exchange')
+        print('7. Steal')
+        return int(input())
+    
+    def chose_player(self):
+        a = 1
+        print("Elige un jugador al que le quieras ejecutar la accion:")
+        for i in self.__Lplayers:
+            print(a,". ",i["name"],"Cartas:", len(i["cards"]), "Cartas Perdidas:",i["lostcards"],
+             "Monedas:",i["coins"],"Influencia:",i["influence"])
+            a+=1
+        return int(input())
+
     def game(self):
         JA = self.__Lplayers[self.__turno]["name"] #acceder al nombre del jugador actual
         print('\n',"turno de: ",JA)
         selection = Start_Game(self.__Maze,self.__Lplayers,self.__turno).print_menu()
         if selection == 1:
-            pass
+            
+            
+            
+            if self.__Lplayers[self.__turno]["coins"] >= 10:
+                print("Tienes 10 o mas monedas, debes hacer coup")
+                c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
+                coup = Actions(self.__Lplayers[c-1],self.__Lplayers[self.__turno],self.__Maze).Golpe()
+                self.__Lplayers[self.__turno]['coins'] = coup[0]
+                self.__Lplayers[c-1] = coup[1]
+            selection = Start_Game(self.__Maze,self.__Lplayers,self.__turno).print_actions()
+           
+           
+           
+            if selection == 1:
+                nd = Actions("",self.__Lplayers[self.__turno],self.__Maze).Ingreso()
+                self.__Lplayers[self.__turno]['coins'] = nd #cambio de moneda del jugador de turno
+            
+            
+            
+            if selection == 2:
+                nd = Actions("",self.__Lplayers[self.__turno],self.__Maze).Ayuda_Extrangera()
+                self.__Lplayers[self.__turno]['coins'] = nd #cambio de moneda del jugador de turno
+           
+           
+           
+            if selection == 3:
+                if self.__Lplayers[self.__turno]["coins"] >= 7:
+                    c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
+                    coup = Actions(self.__Lplayers[c-1],self.__Lplayers[self.__turno],self.__Maze).Golpe()
+                    self.__Lplayers[self.__turno]['coins'] = coup[0]
+                    self.__Lplayers[c-1] = coup[1]
+                else:
+                    print("No tienes monedas suficientes para hacer coup, aprete cualquier tecla para volver al menu")
+                    input()
+                    Start_Game(self.__Maze,self.__Lplayers,self.__turno).game()
+            
+            
+            
+            
+            if selection == 4:
+                nd = Actions("",self.__Lplayers[self.__turno],self.__Maze).Ayuda_Extrangera()
+                self.__Lplayers[self.__turno]['coins'] = nd #cambio de moneda del jugador de turno
+            
+            
+            if selection == 5:
+
+
+                if self.__Lplayers[self.__turno]["coins"] >= 3:
+                    c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
+                    asse = Actions(self.__Lplayers[c-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
+                    self.__Lplayers[self.__turno]['coins'] = asse[0]
+                    self.__Lplayers[c-1] = asse[1]
+                else:
+                    print("No tienes monedas suficientes para hacer asesinato, aprete cualquier tecla para volver al menu")
+                    input()
+                    Start_Game(self.__Maze,self.__Lplayers,self.__turno).game()
+
+
+
+
+
+
+           
+            if selection == 6:
+            
+            
+            
+            if selection == 7:
+            
+            
+            
             if self.__turno != len(self.__Lplayers):
                 self.__turno += 1
             else:
                 self.__turno = 0
+        
+        
+        
         if selection == 2:
             print(self.__Lplayers[self.__turno]["cards"]) #acceder a cartas del jugador actual
 
