@@ -108,14 +108,23 @@ class Start_Game:
 
            
             if selection == 6:
-            
+            nd=Actions("",self.__Lplayers[self.turno],self.__Maze).Embajador()
+            self.__Lplayers[self.__turno]= nd[0]
+            self.__Maze=nd[1]
             
             
             if selection == 7:
+
+            c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
+            extorsion=Actions(self.__Lplayers[c-1],self.__Lplayers[self.__turno],self.__Maze).Extorsion()
+            self.__Lplayers[c-1]=extorsion[0]
+            self.__Lplayers[self.__turno]=extorsion[1]
+
+
+
+
             
-            
-            
-            if self.__turno != len(self.__Lplayers):
+            if self.__turno +1 <= len(self.__Lplayers):
                 self.__turno += 1
             else:
                 self.__turno = 0

@@ -32,7 +32,55 @@ class Actions:
         self.__D_acusador['coins'] = Brain(self.__deck,self.__D_acusador).Change_coins('+',3)
         return self.__D_acusador['coins']
 
-   # def Embajador(self):
+   
+    def Embajador(self):
+        EM= Brain(self.__deck, self.__D_acusador).Take_cards()
+        self.__D_acusador=EM[0]
+        slef.__deck=EM[1]
+
+        EM= Brain(self.__deck, self.__D_acusador).Take_cards()
+        self.__D_acusador=EM[0]
+        slef.__deck=EM[1]
+        print("pulse cualquier tecla para ver todas las cartas en su mano e indique una que quiera eliminar")
+        input()
+        a=1
+        for i in self.__D_acusador['cards']:
+            print(a,". ",self.__D_acusador["cards"][i])
+            a+=1
+        carta_a_eliminar=int(input("N° de carta eliminar: "))-1
+
+        EM= Brain(self.__deck, self.__D_acusador).Deposit_cards(self.__D_acusador['cards'][carta_a_eliminar])
+        self.__D_acusador=EM[0]
+        slef.__deck=EM[1]
+
+        print(" indique la siguente carta que quiera eliminar")
+        
+        a=1
+        for i in self.__D_acusador['cards']:
+            print(a,". ",self.__D_acusador["cards"][i])
+            a+=1
+        carta_a_eliminar=int(input("N° de carta eliminar: "))-1
+
+        EM= Brain(self.__deck, self.__D_acusador).Deposit_cards(self.__D_acusador['cards'][carta_a_eliminar])
+        self.__D_acusador=EM[0]
+        slef.__deck=EM[1]
+
+        return [self.__D_acusador,self.__deck]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def Asesino(self):
         nd = Brain(self.__deck,self.__D_acusador).Change_coins('-',3)
@@ -50,7 +98,11 @@ class Actions:
 
 
 
-   # def Embajador (self):
+    def Extorison (self):
+    self.__D_acusador['coins']=Brain(self.__deck,self.__D_acusador).Change_coins("+",2)
+    self.__D_acusado['coins']=Brain(self.__deck,self.__D_acusado).Change_coins('-',2)
+    return [self.__D_acusado,self.__D_acusador]
+        
 
   #  def Capitan(self):
 
