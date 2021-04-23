@@ -201,7 +201,7 @@ class Start_Game:
                         c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_c(self.__Lplayers[self.__turno])
                         if c == False:
                             cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
-                            asse = Actions(self.__Lplayers[c-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
+                            asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
                             self.__Lplayers[cp-1] = asse[1]
                         else:
                             print(self.__Lplayers[self.__turno]['name'],"has sido contraatacado por",c["name"])
@@ -224,7 +224,7 @@ class Start_Game:
                                     ind = self.__Lplayers.index(d) 
                                     self.__Lplayers[ind] = a[1]
                                     cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
-                                    asse = Actions(self.__Lplayers[c-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
+                                    asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
                                     self.__Lplayers[cp-1] = asse[1]
                     else: 
                         a = Intervenciones(self.__Lplayers[self.__turno],d,self.__Maze).Desafio('Assassin')
@@ -241,7 +241,7 @@ class Start_Game:
                                     print("Nadie desafio el contraataque")
                                     
                                 else:
-                                    a = Intervenciones(c,d,self.__Maze).Desafio('Assassin')
+                                    a = Intervenciones(c,d,self.__Maze).Desafio('Contessa')
                                     if a[3] == 0: #gana c
                                         self.__Maze = a[2]
                                         ind = self.__Lplayers.index(c) 
@@ -249,14 +249,14 @@ class Start_Game:
                                         ind = self.__Lplayers.index(d) 
                                         self.__Lplayers[ind] = a[1]
                                     else: #gana d
-                                     self.__Maze = a[2]
-                                      ind = self.__Lplayers.index(c) 
-                                     self.__Lplayers[ind] = a[0]
-                                     ind = self.__Lplayers.index(d) 
-                                     self.__Lplayers[ind] = a[1]
-                                     cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
-                                     asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
-                                     self.__Lplayers[cp-1] = asse[1]
+                                        self.__Maze = a[2]
+                                        ind = self.__Lplayers.index(c) 
+                                        self.__Lplayers[ind] = a[0]
+                                        ind = self.__Lplayers.index(d) 
+                                        self.__Lplayers[ind] = a[1]
+                                        cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
+                                        asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
+                                        self.__Lplayers[cp-1] = asse[1]
                         else: #gana d
                             self.__Maze = a[2]
                             self.__Lplayers[self.__turno] = a[0]
