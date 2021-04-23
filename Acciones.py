@@ -21,7 +21,7 @@ class Actions:
         print(self.__D_acusado['name'], "Pulsa para ver tus cartas y selecciona la que quieres perder")
         input()
         for i in   range(len(self.__D_acusado['cards'])):
-            print(i,". ",self.__D_acusado['cards'][i])
+            print(i+1,". ",self.__D_acusado['cards'][i])
         card = int(input('Selecciona cual quieres perder: '))-1
         nda = Brain(self.__deck,self.__D_acusado).Lost_card(card)
         self.__D_acusado = nda

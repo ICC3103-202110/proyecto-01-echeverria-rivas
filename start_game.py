@@ -105,7 +105,7 @@ class Start_Game:
                 coup = Actions(self.__Lplayers[c-1],self.__Lplayers[self.__turno],self.__Maze).Golpe()
                 self.__Lplayers[self.__turno]['coins'] = coup[0]
                 self.__Lplayers[c-1] = coup[1]
-            selection = Start_Game(self.__Maze,self.__Lplayers,self.__turno).print_actions()
+            
            
            
            
@@ -372,8 +372,10 @@ class Start_Game:
             self.__turno += 1
             if self.__turno > len(self.__Lplayers)-1:
                 self.__turno = 0
-            while self.__Lplayers[self.__turno]['influence'] <= 0:
-                self.__turno += 1
+            while self.__Lplayers[self.__turno]['influence'] <= 0:#hay que cambiar esto porque ir subiendo el numero del turno no va a aumentar la influencia del jugador del turno, entonces le suma 1 infinitamente hasta salirse del rango
+                if self.__Lplayers[self.__turno]['influence'] <= 0:
+                
+                    self.__turno += 1
             Start_Game(self.__Maze,self.__Lplayers,self.__turno).game()
 
         if selection == 2:
