@@ -49,7 +49,7 @@ class Intervenciones(Actions):
             for i in range(self.__D_acusador["influence"]):
                 print("carta ",i+1,' ',self.__D_acusador["cards"][i])
 
-            print('seleccione la carta que quieres perder')
+            print('seleccione el N° de la carta que quieres perder')
         
             carta_volteada= int(input())-1
 
@@ -110,7 +110,7 @@ class Intervenciones(Actions):
             for i in range(self.__D_acusador["influence"]):
                 print("carta ",i+1,' ',self.__D_acusador["cards"][i])
 
-            print('seleccione la carta que quieres perder')
+            print('seleccione el N° de la carta que quieres perder')
         
             carta_volteada= int(input())-1
 

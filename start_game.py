@@ -36,7 +36,19 @@ class Start_Game:
     
     def chose_player(self):
         a = 1
+        
+
+
+        LV = []
+        for i in self.__Lplayers:
+            if int(i['influence']) != 0:
+                LV.append(i)
+        if len(LV) == 1:
+            print(LV[0]["name"],'HAS GANADO') 
+            sys.exit()
         print("Elige un jugador al que le quieras ejecutar la accion:")
+        
+        
         for i in self.__Lplayers:
             if i["influence"] > 0:
                 print(a,". ",i["name"],"Cartas:", len(i["cards"]), "Cartas Perdidas:",i["lostcards"],
@@ -104,6 +116,7 @@ class Start_Game:
         JA = self.__Lplayers[self.__turno]["name"] #acceder al nombre del jugador actual
         print('\n',"turno de: ",JA)
         selection = Start_Game(self.__Maze,self.__Lplayers,self.__turno).print_menu()
+        
         if selection == 1:
             
             

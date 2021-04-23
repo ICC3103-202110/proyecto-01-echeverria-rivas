@@ -30,5 +30,10 @@ for i in LPlayers: #Dicionario con cartas para cada jugador
     i["cards"].append(c)
 
 
+for i in range(len(LPlayers)):
+    print('\n','jugador' , LPlayers[i]['name'],'pulse cualquier tecla para ver sus cartas')
+    input()
+    print('\n',LPlayers[i]['cards'])
+
 
 Start_Game(shuffled_deck, LPlayers, 0).game() 
