@@ -21,7 +21,7 @@ class Intervenciones(Actions):
         for i in range(self.__D_acusado["influence"]):
             print("carta ",i+1,' ',self.__D_acusado["cards"][i])
 
-        print('seleccione la carta que quiera voltear')
+        print('seleccione el N° de la carta que quiera voltear')
         
         carta_volteada= int(input())-1
         print('\n''\n''\n''\n''\n','jugador ',self.__D_acusado["name"]
@@ -81,7 +81,7 @@ class Intervenciones(Actions):
         for i in range(self.__D_acusado["influence"]):
             print("carta ",i+1,' ',self.__D_acusado["cards"][i])
 
-        print('seleccione la carta que quiera voltear')
+        print('seleccione el N° de la carta que quiera voltear')
         
         carta_volteada= int(input())-1
         print('\n''\n''\n''\n''\n','jugador ',self.__D_acusado["name"]
