@@ -280,8 +280,8 @@ class Start_Game:
                     if c == False:
                         cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
                         nd=Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Extorison()
-                        self.__Lplayers[self.__turno]= nd[0]
-                        self.__Maze=nd[1]
+                        self.__Lplayers[self.__turno]= nd[1]
+                        self.__Lplayers[cp-1] = nd[0]
                     else:
                         print(self.__Lplayers[self.__turno]['name'],"has sido contraatacado por",c["name"])
                         d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(c)
@@ -304,8 +304,8 @@ class Start_Game:
                                 self.__Lplayers[ind] = a[1]
                                 cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
                                 nd=Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Extorison()
-                                self.__Lplayers[self.__turno]= nd[0]
-                                self.__Maze=nd[1]
+                                self.__Lplayers[self.__turno]= nd[1]
+                                self.__Lplayers[cp-1] = nd[0]
                 else: 
                     a = Intervenciones(self.__Lplayers[self.__turno],d,self.__Maze).Desafio_esp()                        
                     if a[3] == 0: #gana JA

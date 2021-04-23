@@ -14,11 +14,12 @@ class Brain:
         return self.__diccionario['coins']
 
     def Deposit_cards(self,card):
-        carta_retirada=self.__diccionario['cards'][card]
+        self.__diccionario['cards'].index(card)
+        carta_retirada=self.__diccionario['cards'][self.__diccionario['cards'].index(card)]
 
         self.__Deck.append(carta_retirada)
 
-        self.__diccionario['cards'].pop(card)
+        self.__diccionario['cards'].pop(self.__diccionario['cards'].index(card))
         
         random.shuffle(self.__Deck)
 
