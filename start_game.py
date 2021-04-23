@@ -2,6 +2,7 @@ from numpy import *
 from crerebro import *
 from Acciones import *
 from intervenciones import *
+import sys
 
 class Start_Game:
     def __init__(self,Maze,Lplayers,turno):
@@ -91,6 +92,14 @@ class Start_Game:
             return False
 
     def game(self):
+        LV = []
+        for i in self.__Lplayers:
+            if int(i['influence']) != 0:
+                LV.append(i)
+        if len(LV) == 1:
+            print(LV[0]["name"],'HAS GANADO') 
+            sys.exit()
+            #SI ROMPE EL JUEGO HASTA AHORA
 
         JA = self.__Lplayers[self.__turno]["name"] #acceder al nombre del jugador actual
         print('\n',"turno de: ",JA)
@@ -107,7 +116,7 @@ class Start_Game:
                 self.__Lplayers[c-1] = coup[1]
             
            
-           
+            selection = Start_Game(self.__Maze,self.__Lplayers,self.__turno).print_actions()
            
             if selection == 1:#ingresos
                 print('El jugador ',self.__Lplayers[self.__turno]['name'],"ha usado 'Ingresos'(+1 moneda)")
@@ -234,7 +243,7 @@ class Start_Game:
                             ind = self.__Lplayers.index(d) 
                             self.__Lplayers[ind] = a[1]
                             c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_c(self.__Lplayers[self.__turno])
-                            if c!= False:
+                            if c!= False: #contraatacan al JA despues de desafiar al JA y ganar JA
                                 print(self.__Lplayers[self.__turno]['name'],"has sido contraatacado por",c["name"])
                                 d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(c)
                                 if d == False:
@@ -257,6 +266,10 @@ class Start_Game:
                                         cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
                                         asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
                                         self.__Lplayers[cp-1] = asse[1]
+                            else: #nadie contraataca al asesinato despues de desafiar y ganar asesinato por lo tanto se ejecuta la accion
+                                cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
+                                asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
+                                self.__Lplayers[cp-1] = asse[1]
                         else: #gana d
                             self.__Maze = a[2]
                             self.__Lplayers[self.__turno] = a[0]
@@ -312,32 +325,47 @@ class Start_Game:
                     if a[3] == 0: #gana JA
                         self.__Maze = a[2]
                         self.__Lplayers[self.__turno] = a[0]
+
+                        #creo que no hay que igualar la linea de arriba porque el jugador
+                        #que juega capitan y lo desafian y gana, pierde de su mano capitan
+                        #siendo que todavia lo pueden contra atacar y si pierde el contraataque
+                        #su mano ya no tendria capitan, sino otra
+
+                        #si me contraatacan capitan y pierdo el contra ataque, pierdo cualquier carta?
+                        #o pierdo capitan o no pierdo ninguna?
+
                         ind = self.__Lplayers.index(d) 
                         self.__Lplayers[ind] = a[1]
                         c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_c(self.__Lplayers[self.__turno])
-                        print(self.__Lplayers[self.__turno]['name'],"has sido contraatacado por",c["name"])
-                        d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(c)
-                        if d == False:
-                            print("Nadie desafio el contraataque")
-                            pass
-                        else:
-                            a = Intervenciones(c,d,self.__Maze).Desafio_esp()
-                            if a[3] == 0: #gana c
-                                self.__Maze = a[2]
-                                ind = self.__Lplayers.index(c) 
-                                self.__Lplayers[ind] = a[0]
-                                ind = self.__Lplayers.index(d) 
-                                self.__Lplayers[ind] = a[1]
-                            else: #gana d
-                                self.__Maze = a[2]
-                                ind = self.__Lplayers.index(c) 
-                                self.__Lplayers[ind] = a[0]
-                                ind = self.__Lplayers.index(d) 
-                                self.__Lplayers[ind] = a[1]
-                                cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
-                                nd=Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Extorison()
-                                self.__Lplayers[self.__turno]= nd[1]
-                                self.__Lplayers[cp-1] = nd[0]
+                        if c != False: #faltaba esto para ver si contraatacaban sino tiraba error
+                            print(self.__Lplayers[self.__turno]['name'],"has sido contraatacado por",c["name"])
+                            d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(c)
+                            if d == False:
+                                print("Nadie desafio el contraataque")
+                                pass
+                            else:
+                                a = Intervenciones(c,d,self.__Maze).Desafio_esp()
+                                if a[3] == 0: #gana c
+                                    self.__Maze = a[2]
+                                    ind = self.__Lplayers.index(c) 
+                                    self.__Lplayers[ind] = a[0]
+                                    ind = self.__Lplayers.index(d) 
+                                    self.__Lplayers[ind] = a[1]
+                                else: #gana d
+                                    self.__Maze = a[2]
+                                    ind = self.__Lplayers.index(c) 
+                                    self.__Lplayers[ind] = a[0]
+                                    ind = self.__Lplayers.index(d) 
+                                    self.__Lplayers[ind] = a[1]
+                                    cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
+                                    nd=Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Extorison()
+                                    self.__Lplayers[self.__turno]= nd[1]
+                                    self.__Lplayers[cp-1] = nd[0]
+                        else: #nadie contraataca
+                            cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
+                            nd=Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Extorison()
+                            self.__Lplayers[self.__turno]= nd[1]
+                            self.__Lplayers[cp-1] = nd[0]
                     else: #gana d
                         self.__Maze = a[2]
                         self.__Lplayers[self.__turno] = a[0]
@@ -359,26 +387,39 @@ class Start_Game:
                         self.__Lplayers[self.__turno] = a[0]
                         ind = self.__Lplayers.index(d) 
                         self.__Lplayers[ind] = a[1]
-                        cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
-                        cambio = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Cambio()
-                        self.__Lplayers[cp-1] = cambio[0]
-                        self.__Lplayers[self.__turno] = cambio[1]
+                        #cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player() deberia estar demas esto
+                        #cambio = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Cambio() el self.__Lplayers[cp-1] debria estar demas
+                        cambio = Actions('',self.__Lplayers[self.__turno],self.__Maze).Cambio()
+                        #self.__Lplayers[cp-1] = cambio[0] esto retornar dic con cartas cambiadas
+                        self.__Lplayers[self.__turno] = cambio[0]
+                        #self.__Lplayers[self.__turno] = cambio[1] esto retornar maso de cartas
+                        self.__Maze = cambio[1]
                     else: #gana d
                         self.__Maze = a[2]
                         self.__Lplayers[self.__turno] = a[0]
                         ind = self.__Lplayers.index(d) 
                         self.__Lplayers[ind] = a[1]
 
+#            self.__turno += 1
+ #           if self.__turno > len(self.__Lplayers)-1:
+  #              self.__turno = 0
+   #         while self.__Lplayers[self.__turno]['influence'] <= 0:#hay que cambiar esto porque ir subiendo el numero del turno no va a aumentar la influencia del jugador del turno, entonces le suma 1 infinitamente hasta salirse del rango
+    #            if self.__Lplayers[self.__turno]['influence'] <= 0:
+     #               if self.__turno > len(self.__Lplayers)-1:
+      #                  self.__turno = -1
+       #             self.__turno += 1
+#
+ #           Start_Game(self.__Maze,self.__Lplayers,self.__turno).game()''' 
+
             self.__turno += 1
             if self.__turno > len(self.__Lplayers)-1:
                 self.__turno = 0
-            while self.__Lplayers[self.__turno]['influence'] <= 0:#hay que cambiar esto porque ir subiendo el numero del turno no va a aumentar la influencia del jugador del turno, entonces le suma 1 infinitamente hasta salirse del rango
-                if self.__Lplayers[self.__turno]['influence'] <= 0:
-                    if self.__turno > len(self.__Lplayers)-1:
-                        self.__turno = -1
-                    self.__turno += 1
-
+            while self.__Lplayers[self.__turno]['influence'] <= 0:
+                self.__turno += 1
+                if self.__turno > len(self.__Lplayers)-1:
+                    self.__turno = 0
             Start_Game(self.__Maze,self.__Lplayers,self.__turno).game()
+            #lo que teniamos antes
 
         if selection == 2:
             print(self.__Lplayers[self.__turno]["cards"]) #acceder a cartas del jugador actual

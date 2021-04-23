@@ -80,8 +80,9 @@ class Actions:
 
 
     def Asesino(self):
-        nd = Brain(self.__deck,self.__D_acusador).Change_coins('-',3)
-        self.__D_acusador['coins'] = nd
+        #nd = Brain(self.__deck,self.__D_acusador).Change_coins('-',3)
+        #self.__D_acusador['coins'] = nd
+        #esto hacia que se restara 2 veces 3 en monedas
         print(self.__D_acusado['name'], "Pulsa para ver tus cartas y selecciona la que quieres perder")
         input()
         for i in range(len(self.__D_acusado['cards'])):
