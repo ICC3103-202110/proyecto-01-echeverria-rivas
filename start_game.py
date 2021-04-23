@@ -7,13 +7,14 @@ class Start_Game:
     def __init__(self,Maze,Lplayers,turno):
         self.__Maze = Maze
         self.__Lplayers = Lplayers
-        self.__turno = 0
+        self.__turno = turno
     
     def print_menu(self): #Menu Turno
         print("")
         for i in self.__Lplayers:
-            print(i["name"],"Cartas:", len(i["cards"]), "Cartas Perdidas:",i["lostcards"],
-             "Monedas:",i["coins"],"Influencia:",i["influence"])
+            if i["influence"] > 0 :
+                print(i["name"],"Cartas:", len(i["cards"]), "Cartas Perdidas:",i["lostcards"],
+                "Monedas:",i["coins"],"Influencia:",i["influence"])
         print("")
         print("Selecione que quiere hacer: ")
         print("1. Ejecutar una accion")
@@ -36,8 +37,9 @@ class Start_Game:
         a = 1
         print("Elige un jugador al que le quieras ejecutar la accion:")
         for i in self.__Lplayers:
-            print(a,". ",i["name"],"Cartas:", len(i["cards"]), "Cartas Perdidas:",i["lostcards"],
-             "Monedas:",i["coins"],"Influencia:",i["influence"])
+            if i["influence"] > 0:
+                print(a,". ",i["name"],"Cartas:", len(i["cards"]), "Cartas Perdidas:",i["lostcards"],
+                "Monedas:",i["coins"],"Influencia:",i["influence"])
             a+=1
         return int(input())
 
@@ -76,7 +78,8 @@ class Start_Game:
                 continue
 
             else:
-                n = int(input(i['name'],'oprime 1 para contraatacar, 2 para no hacer nada'))
+                print(i['name'],'oprime 1 para contraacar, 2 para no hacer nada')
+                n = int(input())
                 L.append([i,n])
         for k in L:
             if k[1] == 1: # 1 = desafio
@@ -107,15 +110,15 @@ class Start_Game:
            
            
             if selection == 1:#ingresos
-                print('El jugador ',self.__Lplayers[self.__turno],"ha usado 'Ingresos'(+1 moneda)")
+                print('El jugador ',self.__Lplayers[self.__turno]['name'],"ha usado 'Ingresos'(+1 moneda)")
                 nd = Actions("",self.__Lplayers[self.__turno],self.__Maze).Ingreso()
                 self.__Lplayers[self.__turno]['coins'] = nd #cambio de moneda del jugador de turno
             
             
             
             if selection == 2:#ayuda extranjera
-                print('El jugador ',self.__Lplayers[self.__turno],"ha usado 'Ayuda Extranjera'")
-                d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(self.__Lplayers[self.__turno])
+                print('El jugador ',self.__Lplayers[self.__turno]['name'],"ha usado 'Ayuda Extranjera'")
+                d =False
                 if d == False:
                     c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_c(self.__Lplayers[self.__turno])
                     if c == False:
@@ -332,8 +335,8 @@ class Start_Game:
                                 self.__Lplayers[ind] = a[1]
                                 cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
                                 nd=Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Extorison()
-                                self.__Lplayers[self.__turno]= nd[0]
-                                self.__Maze=nd[1]
+                                self.__Lplayers[self.__turno]= nd[1]
+                                self.__Lplayers[cp-1] = nd[0]
                     else: #gana d
                         self.__Maze = a[2]
                         self.__Lplayers[self.__turno] = a[0]
@@ -345,10 +348,9 @@ class Start_Game:
                 print(JA,"juega Embajador")
                 d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(self.__Lplayers[self.__turno])
                 if d == 0:
-                    cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
-                    cambio = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Cambio()
-                    self.__Lplayers[cp-1] = cambio[0]
-                    self.__Lplayers[self.__turno] = cambio[1]
+                    cambio = Actions(" ",self.__Lplayers[self.__turno],self.__Maze).Cambio()
+                    self.__Lplayers[self.__turno] = cambio[0]
+                    self.__Maze = cambio[1]
                 else:
                     a = Intervenciones(self.__Lplayers[self.__turno],d,self.__Maze).Desafio('Ambassador')
                     if a[3] == 0: #gana JA
