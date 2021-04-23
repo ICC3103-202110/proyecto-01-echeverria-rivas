@@ -87,7 +87,7 @@ class Intervenciones(Actions):
         print('\n''\n''\n''\n''\n','jugador ',self.__D_acusado["name"]
             ,' ha volteado la carta ',self.__D_acusado["cards"][carta_volteada])
 
-        if self.__D_acusado["cards"][carta_volteada] == 'Ambassador' or self.__D_acusado["cards"][carta_volteada] == 'Captain':
+        if self.__D_acusado["cards"][carta_volteada] == 'Captain':
             # DM=Brain(self.__deck,self.__D_acusado).Deposit_cards(carta_volteada) crashea aqui
             DM=Brain(self.__deck,self.__D_acusado).Deposit_cards(self.__D_acusado["cards"][carta_volteada]) #entrega nombre a depositcard en crerebro
             self.__D_acusado=DM[0]
