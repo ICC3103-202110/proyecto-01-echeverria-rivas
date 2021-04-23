@@ -18,11 +18,11 @@ class Actions:
     def Golpe(self):
         nd = Brain(self.__deck,self.__D_acusador).Change_coins('-',7)
         self.__D_acusador['coins'] = nd
-        print(self.__D_acusado['name'], "Pulsa para ver tus cartas y selecciona la que quieres perder")
+        print(self.__D_acusado['name'], "Press to see your cards and chose the one to lose")
         input()
         for i in   range(len(self.__D_acusado['cards'])):
             print(i+1,". ",self.__D_acusado['cards'][i])
-        card = int(input('Selecciona cual quieres perder: '))-1
+        card = int(input('Chose the one to lose: '))-1
         nda = Brain(self.__deck,self.__D_acusado).Lost_card(card)
         self.__D_acusado = nda
         return [self.__D_acusador['coins'],self.__D_acusado]
@@ -41,25 +41,25 @@ class Actions:
         EM= Brain(self.__deck, self.__D_acusador).Take_cards()
         self.__D_acusador=EM[0]
         self.__deck=EM[1]
-        print("pulse cualquier tecla para ver todas las cartas en su mano e indique una que quiera eliminar")
+        print("Press any key to see your cards in the hand and chose the one to lose")
         input()
         a=1
         for i in self.__D_acusador['cards']:
             print(a,". ",i)
             a+=1
-        carta_a_eliminar=int(input("N° de carta eliminar: "))-1
+        carta_a_eliminar=int(input("Write the number of the card to eliminate: "))-1
 
         EM= Brain(self.__deck, self.__D_acusador).Deposit_cards(self.__D_acusador['cards'][carta_a_eliminar])
         self.__D_acusador=EM[0]
         self.__deck=EM[1]
 
-        print(" indique la siguente carta que quiera eliminar")
+        print("Select another card to eliminate")
         
         a=1
         for i in self.__D_acusador['cards']:
             print(a,". ",i)
             a+=1
-        carta_a_eliminar=int(input("N° de carta eliminar: "))-1
+        carta_a_eliminar=int(input("Write the number of the card to eliminate: "))-1
 
         EM= Brain(self.__deck, self.__D_acusador).Deposit_cards(self.__D_acusador['cards'][carta_a_eliminar])
         self.__D_acusador=EM[0]

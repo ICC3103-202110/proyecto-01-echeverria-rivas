@@ -21,7 +21,7 @@ while n != 3 and n != 4:
 
 LPlayers = Player.create_player("",x,n)
 
-for i in LPlayers: #Dicionario con cartas para cada jugador
+for i in LPlayers:
     c = shuffled_deck[0]
     shuffled_deck.pop(0)
     i["cards"].append(c)
@@ -31,7 +31,7 @@ for i in LPlayers: #Dicionario con cartas para cada jugador
 
 
 for i in range(len(LPlayers)):
-    print('\n','jugador' , LPlayers[i]['name'],'pulse cualquier tecla para ver sus cartas')
+    print('\n','Player' , LPlayers[i]['name'],'press any key to see your cards')
     input()
     print('\n',LPlayers[i]['cards'])
 
