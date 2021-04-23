@@ -234,28 +234,29 @@ class Start_Game:
                             ind = self.__Lplayers.index(d) 
                             self.__Lplayers[ind] = a[1]
                             c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_c(self.__Lplayers[self.__turno])
-                            print(self.__Lplayers[self.__turno]['name'],"has sido contraatacado por",c["name"])
-                            d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(c)
-                            if d == False:
-                                print("Nadie desafio el contraataque")
-                                pass
-                            else:
-                                a = Intervenciones(c,d,self.__Maze).Desafio('Assassin')
-                                if a[3] == 0: #gana c
-                                    self.__Maze = a[2]
-                                    ind = self.__Lplayers.index(c) 
-                                    self.__Lplayers[ind] = a[0]
-                                    ind = self.__Lplayers.index(d) 
-                                    self.__Lplayers[ind] = a[1]
-                                else: #gana d
-                                    self.__Maze = a[2]
-                                    ind = self.__Lplayers.index(c) 
-                                    self.__Lplayers[ind] = a[0]
-                                    ind = self.__Lplayers.index(d) 
-                                    self.__Lplayers[ind] = a[1]
-                                    cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
-                                    asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
-                                    self.__Lplayers[cp-1] = asse[1]
+                            if c!= False:
+                                print(self.__Lplayers[self.__turno]['name'],"has sido contraatacado por",c["name"])
+                                d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(c)
+                                if d == False:
+                                    print("Nadie desafio el contraataque")
+                                    
+                                else:
+                                    a = Intervenciones(c,d,self.__Maze).Desafio('Assassin')
+                                    if a[3] == 0: #gana c
+                                        self.__Maze = a[2]
+                                        ind = self.__Lplayers.index(c) 
+                                        self.__Lplayers[ind] = a[0]
+                                        ind = self.__Lplayers.index(d) 
+                                        self.__Lplayers[ind] = a[1]
+                                    else: #gana d
+                                     self.__Maze = a[2]
+                                      ind = self.__Lplayers.index(c) 
+                                     self.__Lplayers[ind] = a[0]
+                                     ind = self.__Lplayers.index(d) 
+                                     self.__Lplayers[ind] = a[1]
+                                     cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
+                                     asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
+                                     self.__Lplayers[cp-1] = asse[1]
                         else: #gana d
                             self.__Maze = a[2]
                             self.__Lplayers[self.__turno] = a[0]

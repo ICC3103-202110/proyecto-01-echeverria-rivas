@@ -42,9 +42,9 @@ class Intervenciones(Actions):
 
 
 
-            input(print(self.__D_acusador["name"],'''ha perdido el desafio. 
-            Presione cualquier tecla para ver tus cartas'''))
-        
+            print(self.__D_acusador["name"],'''ha perdido el desafio. 
+            Presione cualquier tecla para ver tus cartas''')
+            input()
         
             for i in range(self.__D_acusador["influence"]):
                 print("carta ",i+1,' ',self.__D_acusador["cards"][i])
@@ -102,9 +102,9 @@ class Intervenciones(Actions):
 
 
 
-            input(print(self.__D_acusador["name"],'''ha perdido el desafio. 
-            Presione cualquier tecla para ver tus cartas'''))
-        
+            print(self.__D_acusador["name"],'''ha perdido el desafio. 
+            Presione cualquier tecla para ver tus cartas''')
+            input()
         
             for i in range(self.__D_acusador["influence"]):
                 print("carta ",i+1,' ',self.__D_acusador["cards"][i])
