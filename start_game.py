@@ -227,7 +227,7 @@ class Start_Game:
                                     asse = Actions(self.__Lplayers[c-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
                                     self.__Lplayers[cp-1] = asse[1]
                     else: 
-                        a = Intervenciones(self.__Lplayers[self.__turno],d,self.__Maze).Desafio('Contessa')
+                        a = Intervenciones(self.__Lplayers[self.__turno],d,self.__Maze).Desafio('Assassin')
                         if a[3] == 0: #gana JA
                             self.__Maze = a[2]
                             self.__Lplayers[self.__turno] = a[0]
@@ -240,7 +240,7 @@ class Start_Game:
                                 print("Nadie desafio el contraataque")
                                 pass
                             else:
-                                a = Intervenciones(c,d,self.__Maze).Desafio('Contessa')
+                                a = Intervenciones(c,d,self.__Maze).Desafio('Assassin')
                                 if a[3] == 0: #gana c
                                     self.__Maze = a[2]
                                     ind = self.__Lplayers.index(c) 
