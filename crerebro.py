@@ -46,3 +46,9 @@ class Brain:
         return self.__diccionario
 
     
+
+
+
+
+
+    
