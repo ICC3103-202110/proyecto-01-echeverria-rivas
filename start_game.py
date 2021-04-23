@@ -46,14 +46,15 @@ class Start_Game:
         L = []
         LD = []
         for i in self.__Lplayers:
-            if i == JD:
-                pass
+            if i['name'] == JD['name']:
+                continue
 
             if i["influence"]<=0:
-                pass
+                continue
 
             else:
-                n = int(input(i['name'],'oprime 1 para desafiar, 2 para no hacer nada'))
+                print(i['name'],'oprime 1 para desafiar, 2 para no hacer nada')
+                n = int(input())
                 L.append([i,n])
         for k in L:
             if k[1] == 1: # 1 = desafio
@@ -68,11 +69,11 @@ class Start_Game:
         L = []
         LC = []
         for i in self.__Lplayers:
-            if i == JC:
-                pass
+            if i['name'] == JC['name']:
+                continue
 
             if i["influence"]<=0:
-                pass
+                continue
 
             else:
                 n = int(input(i['name'],'oprime 1 para contraatacar, 2 para no hacer nada'))
@@ -87,25 +88,6 @@ class Start_Game:
             return False
 
     def game(self):
-        largoLp1 = len(self.__Lplayers)
-
-        for i in len(self.__Lplayers):
-            if self.__Lplayers[i]['influence'] <= 0:
-                print(self.__Lplayers[i]['name'],"tienes 0 influencia, has perdido")
-                self.__Lplayers.pop(i)
-            if len(self.__Lplayers)==1:
-                print(self.__Lplayers[0],'HAS GANADO')
-                break
-            
-        largoLp2 = len(self.__Lplayers)
-        
-        if self.__turno > len(self.__Lplayers)-1:
-            self.__turno = 0
-        
-        if self.__turno == 0 and len(self.__Lplayers)==1:
-            pass
-
-
 
         JA = self.__Lplayers[self.__turno]["name"] #acceder al nombre del jugador actual
         print('\n',"turno de: ",JA)
@@ -186,7 +168,7 @@ class Start_Game:
                 print(JA,"juega Duke")
                 d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(self.__Lplayers[self.__turno])
                 if d == 0:
-                    nd = Actions("",self.__Lplayers[self.__turno],self.__Maze).Tax()
+                    nd = Actions(" ",self.__Lplayers[self.__turno],self.__Maze).Tax()
                     self.__Lplayers[self.__turno]['coins'] = nd #cambio de moneda del jugador de turno
                 else:
                     a = Intervenciones(self.__Lplayers[self.__turno],d,self.__Maze).Desafio('Duke')
@@ -384,12 +366,13 @@ class Start_Game:
                         ind = self.__Lplayers.index(d) 
                         self.__Lplayers[ind] = a[1]
 
-            
             self.__turno += 1
+            if self.__turno > len(self.__Lplayers)-1:
+                self.__turno = 0
+            while self.__Lplayers[self.__turno]['influence'] <= 0:
+                self.__turno += 1
             Start_Game(self.__Maze,self.__Lplayers,self.__turno).game()
-        
-        
-        
+
         if selection == 2:
             print(self.__Lplayers[self.__turno]["cards"]) #acceder a cartas del jugador actual
             Start_Game(self.__Maze,self.__Lplayers,self.__turno).game()

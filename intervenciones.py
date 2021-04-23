@@ -13,8 +13,9 @@ class Intervenciones(Actions):
     
 
     def Desafio (self,card):
-        input(print(self.__D_acusado["name"],'''ha sido desafiado. 
-            Presione cualquier tecla para ver tus cartas'''))
+        print(self.__D_acusado["name"],'''ha sido desafiado por''',self.__D_acusador["name"],
+        '''Presione cualquier tecla para ver tus cartas''')
+        input()
         
         
         for i in range(self.__D_acusado["influence"]):
