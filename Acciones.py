@@ -69,25 +69,12 @@ class Actions:
 
 
 
-
-
-
-
-
-
-
-
-
-
     def Asesino(self):
-        #nd = Brain(self.__deck,self.__D_acusador).Change_coins('-',3)
-        #self.__D_acusador['coins'] = nd
-        #esto hacia que se restara 2 veces 3 en monedas
-        print(self.__D_acusado['name'], "Pulsa para ver tus cartas y selecciona la que quieres perder")
+        print(self.__D_acusado['name'], "Press any key to see your cards and chose the one to lose")
         input()
         for i in range(len(self.__D_acusado['cards'])):
             print(i+1,". ",self.__D_acusado['cards'][i])
-        card = int(input('Selecciona cual quieres perder: '))-1
+        card = int(input('Chose the card to lose: '))-1
         nda = Brain(self.__deck,self.__D_acusado).Lost_card(card)
         self.__D_acusado = nda
         return [self.__D_acusador['coins'],self.__D_acusado]
@@ -103,42 +90,3 @@ class Actions:
             self.__D_acusador['coins']=Brain(self.__deck,self.__D_acusador).Change_coins("+",2)
             self.__D_acusado['coins']=Brain(self.__deck,self.__D_acusado).Change_coins('-',2)
         return [self.__D_acusado,self.__D_acusador]
-        
-
-    
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
