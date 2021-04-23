@@ -57,7 +57,7 @@ class Actions:
         
         a=1
         for i in self.__D_acusador['cards']:
-            print(a,". ",self.__D_acusador["cards"][i])
+            print(a,". ",i)
             a+=1
         carta_a_eliminar=int(input("N° de carta eliminar: "))-1
 
