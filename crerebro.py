@@ -1,9 +1,6 @@
 from numpy import *
 
 
-
-
-
 class Brain:
     def __init__(self,Deck,diccionario):
         self.__Deck = Deck
@@ -46,3 +43,5 @@ class Brain:
         self.__diccionario['cards'].pop(card)
         self.__diccionario['influence']+= -1
         return self.__diccionario
+
+    

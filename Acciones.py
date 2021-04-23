@@ -36,11 +36,11 @@ class Actions:
     def Cambio(self):
         EM= Brain(self.__deck, self.__D_acusador).Take_cards()
         self.__D_acusador=EM[0]
-        slef.__deck=EM[1]
+        self.__deck=EM[1]
 
         EM= Brain(self.__deck, self.__D_acusador).Take_cards()
         self.__D_acusador=EM[0]
-        slef.__deck=EM[1]
+        self.__deck=EM[1]
         print("pulse cualquier tecla para ver todas las cartas en su mano e indique una que quiera eliminar")
         input()
         a=1
@@ -51,7 +51,7 @@ class Actions:
 
         EM= Brain(self.__deck, self.__D_acusador).Deposit_cards(self.__D_acusador['cards'][carta_a_eliminar])
         self.__D_acusador=EM[0]
-        slef.__deck=EM[1]
+        self.__deck=EM[1]
 
         print(" indique la siguente carta que quiera eliminar")
         
@@ -63,7 +63,7 @@ class Actions:
 
         EM= Brain(self.__deck, self.__D_acusador).Deposit_cards(self.__D_acusador['cards'][carta_a_eliminar])
         self.__D_acusador=EM[0]
-        slef.__deck=EM[1]
+        self.__deck=EM[1]
 
         return [self.__D_acusador,self.__deck]
 
@@ -93,8 +93,14 @@ class Actions:
 
 
     def Extorison (self):
-        self.__D_acusador['coins']=Brain(self.__deck,self.__D_acusador).Change_coins("+",2)
-        self.__D_acusado['coins']=Brain(self.__deck,self.__D_acusado).Change_coins('-',2)
+        x = 0
+        if self.__D_acusado['coins'] < 2:
+            x = int(self.__D_acusado['coins'])
+            self.__D_acusador['coins']=Brain(self.__deck,self.__D_acusador).Change_coins("+",x)
+            self.__D_acusado['coins']=Brain(self.__deck,self.__D_acusado).Change_coins('-',x)
+        else:
+            self.__D_acusador['coins']=Brain(self.__deck,self.__D_acusador).Change_coins("+",2)
+            self.__D_acusado['coins']=Brain(self.__deck,self.__D_acusado).Change_coins('-',2)
         return [self.__D_acusado,self.__D_acusador]
         
 
