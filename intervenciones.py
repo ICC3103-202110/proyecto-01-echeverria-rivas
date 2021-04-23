@@ -28,7 +28,7 @@ class Intervenciones(Actions):
             ,' ha volteado la carta ',self.__D_acusado["cards"][carta_volteada])
 
         if self.__D_acusado["cards"][carta_volteada] == card:
-            DM=Brain(self.__deck,self.__D_acusado).Deposit_cards(carta_volteada)
+            DM=Brain(self.__deck,self.__D_acusado).Deposit_cards(self.__D_acusado["cards"][carta_volteada])
             self.__D_acusado=DM[0]
             self.__deck=DM[1]
             DM=Brain(self.__deck,self.__D_acusado).Take_cards()
