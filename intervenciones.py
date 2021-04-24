@@ -13,7 +13,7 @@ class Interventions(Actions):
     
 
     def Challenge (self,card):
-        print(self.__D_accusated["name"],'''has been challenge''',self.__D_accusator["name"],
+        print(self.__D_accusated["name"],'''has been challenged''',self.__D_accusator["name"],
         '''Press any key to see your cards''')
         input()
         
@@ -66,7 +66,7 @@ class Interventions(Actions):
 
 
     def Special_challenge(self):
-        print(self.__D_accusated["name"],'''has been challenge ''',self.__D_accusator["name"],
+        print(self.__D_accusated["name"],'''has been challenged ''',self.__D_accusator["name"],
         '''Press any key to see your cards''')
         input()
         

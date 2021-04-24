@@ -17,14 +17,14 @@ class Start_Game:
                 for n,d in self.__Lplayers[i].items():
                     if n != 'log':
                         if n== 'name':
-                            print(n,d,sep=': ',end='          ')
+                            print(n,d,sep=':  ',end='\t\t')
         print('\n')
         for i in range(len(self.__Lplayers)):
             if self.__Lplayers[i]["influence"] > 0 :
                 for n,d in self.__Lplayers[i].items():
                     if n != 'log':
                         if n== 'cards':
-                            print(n,len(d),sep=': ',end='         ')
+                            print(n,len(d),sep=': ',end='\t\t')
         print('\n')    
 
         for i in range(len(self.__Lplayers)):
@@ -32,7 +32,7 @@ class Start_Game:
                 for n,d in self.__Lplayers[i].items():
                     if n != 'log':
                         if n== 'coins':
-                            print(n,d,sep=': ',end='         ')
+                            print(n,d,sep=': ',end='\t\t')
         print('\n')
 
         for i in range(len(self.__Lplayers)):
@@ -40,7 +40,7 @@ class Start_Game:
                 for n,d in self.__Lplayers[i].items():
                     if n != 'log':
                         if n== 'influence':
-                            print(n,d,sep=': ',end='     ')
+                            print(n,d,sep=': ',end='\t\t')
         print('\n')
 
         for i in range(len(self.__Lplayers)):
@@ -48,7 +48,7 @@ class Start_Game:
                 for n,d in self.__Lplayers[i].items():
                     if n != 'log':
                         if n== 'lostcards':
-                            print(n,d,sep=': ',end='    ')
+                            print(n,d,sep=': ',end='\t\t')
         print('\n')                            
                         
         print('\n')
@@ -60,14 +60,14 @@ class Start_Game:
         return int(input())
 
     def print_actions(self):
-        print('\nSelect one option:')
+        print('Select one option:')
         print('1. Income')
         print('2. Foreign Aid')
         print('3. Coup')
-        print('4. Duke')
+        print('4. Tax')
         print('5. Assassinate')
-        print('6. Extorsion')
-        print('7. Change')
+        print('6. Steal')
+        print('7. Exchange')
         return int(input())
     
     def chose_player(self):
@@ -86,7 +86,7 @@ class Start_Game:
         
         
         for i in self.__Lplayers:
-            if i["influence"] > 0:
+            if i["influence"] > 0 and i['name'] !=self.__Lplayers[self.__turn]['name']:
                 print(a,". ",i["name"],"Cards:", len(i["cards"]), "Lost Cards:",i["lostcards"],
                 "Coins:",i["coins"],"Influence:",i["influence"])
             a+=1
@@ -149,7 +149,7 @@ class Start_Game:
             sys.exit()
 
         JA = self.__Lplayers[self.__turn]["name"]
-        print('\n',JA,"is your turn")
+        print('\n','------------------------',JA,"is your turn------------------------------------")
         selection = Start_Game(self.__Maze,self.__Lplayers,self.__turn).print_menu()
         
         
@@ -604,6 +604,7 @@ class Start_Game:
         if selection == 3:
             for i in self.__Lplayers[self.__turn]["log"]:
                 print(i)
-            
+            print('press any key to continue')
+            input()
             Start_Game(self.__Maze,self.__Lplayers,self.__turn).game()
 
