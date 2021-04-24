@@ -8,7 +8,7 @@ class Player:
         D = {"name": self.__name , "cards":[], "coins":2, "log":[], "influence":2, "lostcards":[]}
         return D
 
-    def create_player(self,L,J): #Funcion para agregar nombres a la lista (Keys Dictionary)
+    def create_player(self,L,J): 
         for i in range(J):
             print("Write player #",i+1,"name: ")
             name = input()

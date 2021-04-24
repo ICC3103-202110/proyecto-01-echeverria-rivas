@@ -5,115 +5,115 @@ from crerebro import *
 
 
 
-class Intervenciones(Actions):
-    def __init__(self,D_acusado,D_acusador,deck):
-        self.__D_acusado = D_acusado
-        self.__D_acusador = D_acusador
+class Interventions(Actions):
+    def __init__(self,D_accusated,D_accusator,deck):
+        self.__D_accusated = D_accusated
+        self.__D_accusator = D_accusator
         self.__deck = deck
     
 
-    def Desafio (self,card):
-        print(self.__D_acusado["name"],'''has been challenge''',self.__D_acusador["name"],
+    def Challenge (self,card):
+        print(self.__D_accusated["name"],'''has been challenge''',self.__D_accusator["name"],
         '''Press any key to see your cards''')
         input()
         
         
-        for i in range(self.__D_acusado["influence"]):
-            print("card ",i+1,' ',self.__D_acusado["cards"][i])
+        for i in range(self.__D_accusated["influence"]):
+            print("card ",i+1,' ',self.__D_accusated["cards"][i])
 
         print('Chose the number of the card to flip')
         
-        carta_volteada= int(input())-1
-        print('\n''\n''\n''\n''\n','Player ',self.__D_acusado["name"]
-            ,' has fliped the card ',self.__D_acusado["cards"][carta_volteada])
+        fliped_card= int(input())-1
+        print('\n''\n''\n''\n''\n','Player ',self.__D_accusated["name"]
+            ,' has fliped the card ',self.__D_accusated["cards"][fliped_card])
 
-        if self.__D_acusado["cards"][carta_volteada] == card:
-            DM=Brain(self.__deck,self.__D_acusado).Deposit_cards(self.__D_acusado["cards"][carta_volteada])
-            self.__D_acusado=DM[0]
+        if self.__D_accusated["cards"][fliped_card] == card:
+            DM=Brain(self.__deck,self.__D_accusated).Deposit_cards(self.__D_accusated["cards"][fliped_card])
+            self.__D_accusated=DM[0]
             self.__deck=DM[1]
-            DM=Brain(self.__deck,self.__D_acusado).Take_cards()
-            self.__D_acusado=DM[0]
+            DM=Brain(self.__deck,self.__D_accusated).Take_cards()
+            self.__D_accusated=DM[0]
             self.__deck=DM[1]
 
 
-            print(self.__D_acusador["name"],''' lost the challenge. 
+            print(self.__D_accusator["name"],''' lost the challenge. 
             Press any key to see your cards''')
             input()
         
-            for i in range(self.__D_acusador["influence"]):
-                print("card ",i+1,' ',self.__D_acusador["cards"][i])
+            for i in range(self.__D_accusator["influence"]):
+                print("card ",i+1,' ',self.__D_accusator["cards"][i])
 
             print('Chose the number of the card to flip')
         
-            carta_volteada= int(input())-1
+            fliped_card= int(input())-1
 
-            DM=Brain(self.__deck,self.__D_acusador).Lost_card(carta_volteada)
-            self.__D_acusador=DM
+            DM=Brain(self.__deck,self.__D_accusator).Lost_card(fliped_card)
+            self.__D_accusator=DM
 
 
-            return [self.__D_acusado,self.__D_acusador,self.__deck,0]
+            return [self.__D_accusated,self.__D_accusator,self.__deck,0]
             
 
 
             
         else:
-            print(self.__D_acusado["name"],''' has lost the challenge''')
+            print(self.__D_accusated["name"],''' has lost the challenge''')
 
-            DM=Brain(self.__deck,self.__D_acusado).Lost_card(carta_volteada)
-            self.__D_acusado=DM
+            DM=Brain(self.__deck,self.__D_accusated).Lost_card(fliped_card)
+            self.__D_accusated=DM
 
-            return[self.__D_acusado,self.__D_acusador,self.__deck,1]#si termina en 0 el desafiado gana y si termina en 1 el desafiante gana
+            return[self.__D_accusated,self.__D_accusator,self.__deck,1]
 
 
-    def Desafio_esp(self):
-        print(self.__D_acusado["name"],'''has been challenge ''',self.__D_acusador["name"],
+    def Special_challenge(self):
+        print(self.__D_accusated["name"],'''has been challenge ''',self.__D_accusator["name"],
         '''Press any key to see your cards''')
         input()
         
         
-        for i in range(self.__D_acusado["influence"]):
-            print("card ",i+1,' ',self.__D_acusado["cards"][i])
+        for i in range(self.__D_accusated["influence"]):
+            print("card ",i+1,' ',self.__D_accusated["cards"][i])
 
         print('Chose the number of the card to flip')
         
-        carta_volteada= int(input())-1
-        print('\n''\n''\n''\n''\n','player ',self.__D_acusado["name"]
-            ,' has fliped the card ',self.__D_acusado["cards"][carta_volteada])
+        fliped_card= int(input())-1
+        print('\n''\n''\n''\n''\n','player ',self.__D_accusated["name"]
+            ,' has fliped the card ',self.__D_accusated["cards"][fliped_card])
 
-        if self.__D_acusado["cards"][carta_volteada] == 'Captain':
-            # DM=Brain(self.__deck,self.__D_acusado).Deposit_cards(carta_volteada) crashea aqui
-            DM=Brain(self.__deck,self.__D_acusado).Deposit_cards(self.__D_acusado["cards"][carta_volteada]) #entrega nombre a depositcard en crerebro
-            self.__D_acusado=DM[0]
+        if self.__D_accusated["cards"][fliped_card] == 'Captain':
+            
+            DM=Brain(self.__deck,self.__D_accusated).Deposit_cards(self.__D_accusated["cards"][fliped_card]) 
+            self.__D_accusated=DM[0]
             self.__deck=DM[1]
-            DM=Brain(self.__deck,self.__D_acusado).Take_cards()
-            self.__D_acusado=DM[0]
+            DM=Brain(self.__deck,self.__D_accusated).Take_cards()
+            self.__D_accusated=DM[0]
             self.__deck=DM[1]
 
 
-            print(self.__D_acusador["name"],'''has lost challenge. 
+            print(self.__D_accusator["name"],'''has lost challenge. 
             Press any key to see your cards''')
             input()
         
-            for i in range(self.__D_acusador["influence"]):
-                print("card ",i+1,' ',self.__D_acusador["cards"][i])
+            for i in range(self.__D_accusator["influence"]):
+                print("card ",i+1,' ',self.__D_accusator["cards"][i])
 
             print('Chose the number of the card to flip')
         
-            carta_volteada= int(input())-1
+            fliped_card= int(input())-1
 
-            DM=Brain(self.__deck,self.__D_acusador).Lost_card(carta_volteada)
-            self.__D_acusador=DM
+            DM=Brain(self.__deck,self.__D_accusator).Lost_card(fliped_card)
+            self.__D_accusator=DM
 
 
-            return [self.__D_acusado,self.__D_acusador,self.__deck,0]
+            return [self.__D_accusated,self.__D_accusator,self.__deck,0]
             
 
 
             
         else:
-            print(self.__D_acusado["name"],'''has lost the challenge''')
+            print(self.__D_accusated["name"],'''has lost the challenge''')
 
-            DM=Brain(self.__deck,self.__D_acusado).Lost_card(carta_volteada)
-            self.__D_acusado=DM
+            DM=Brain(self.__deck,self.__D_accusated).Lost_card(fliped_card)
+            self.__D_accusated=DM
 
-            return[self.__D_acusado,self.__D_acusador,self.__deck,1]
+            return[self.__D_accusated,self.__D_accusator,self.__deck,1]

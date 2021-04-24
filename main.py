@@ -11,11 +11,11 @@ shuffled_deck=Deck(["Duke", "Duke", "Duke", "Assassin", "Assassin", "Assassin",
 
 
 
-x = [] #Lista vacia para nombres de jugadores
+x = [] 
 
-n = 0 #numero jugadores
+n = 0 
 while n != 3 and n != 4:
-    n = int(input("How many player will play (3 or 4): "))
+    n = int(input("How many players will play (3 or 4): "))
 
 
 

@@ -5,20 +5,56 @@ from intervenciones import *
 import sys
 
 class Start_Game:
-    def __init__(self,Maze,Lplayers,turno):
+    def __init__(self,Maze,Lplayers,turn):
         self.__Maze = Maze
         self.__Lplayers = Lplayers
-        self.__turno = turno
+        self.__turn = turn
     
     def print_menu(self):
-        print("")
-        for i in self.__Lplayers:
-            if i["influence"] > 0 :
-                print(i["name"],"Cards:", len(i["cards"]), "Lost Cards:",i["lostcards"],
-                "Coins:",i["coins"],"Influence:",i["influence"])
-        print("")
+        
+        for i in range(len(self.__Lplayers)):
+            if self.__Lplayers[i]["influence"] > 0 :
+                for n,d in self.__Lplayers[i].items():
+                    if n != 'log':
+                        if n== 'name':
+                            print(n,d,sep=': ',end='          ')
+        print('\n')
+        for i in range(len(self.__Lplayers)):
+            if self.__Lplayers[i]["influence"] > 0 :
+                for n,d in self.__Lplayers[i].items():
+                    if n != 'log':
+                        if n== 'cards':
+                            print(n,len(d),sep=': ',end='         ')
+        print('\n')    
+
+        for i in range(len(self.__Lplayers)):
+            if self.__Lplayers[i]["influence"] > 0 :
+                for n,d in self.__Lplayers[i].items():
+                    if n != 'log':
+                        if n== 'coins':
+                            print(n,d,sep=': ',end='         ')
+        print('\n')
+
+        for i in range(len(self.__Lplayers)):
+            if self.__Lplayers[i]["influence"] > 0 :
+                for n,d in self.__Lplayers[i].items():
+                    if n != 'log':
+                        if n== 'influence':
+                            print(n,d,sep=': ',end='     ')
+        print('\n')
+
+        for i in range(len(self.__Lplayers)):
+            if self.__Lplayers[i]["influence"] > 0 :
+                for n,d in self.__Lplayers[i].items():
+                    if n != 'log':
+                        if n== 'lostcards':
+                            print(n,d,sep=': ',end='    ')
+        print('\n')                            
+                        
+        print('\n')
+        
         print("Select one option: ")
-        print("1. Executed an action]")
+        print("1. Execute an action")
         print("2. See Cards")
         print("3. See log")
         return int(input())
@@ -57,7 +93,7 @@ class Start_Game:
         return int(input())
 
 
-    def pregunta_d(self, JD):
+    def Question_d(self, JD):
         L = []
         LD = []
         for i in self.__Lplayers:
@@ -80,7 +116,7 @@ class Start_Game:
         else:
             return False
 
-    def pregunta_c(self, JC):
+    def Question_c(self, JC):
         L = []
         LC = []
         for i in self.__Lplayers:
@@ -112,23 +148,23 @@ class Start_Game:
             print(LV[0]["name"],'WINS THE GAME') 
             sys.exit()
 
-        JA = self.__Lplayers[self.__turno]["name"]
+        JA = self.__Lplayers[self.__turn]["name"]
         print('\n',JA,"is your turn")
-        selection = Start_Game(self.__Maze,self.__Lplayers,self.__turno).print_menu()
+        selection = Start_Game(self.__Maze,self.__Lplayers,self.__turn).print_menu()
         
         
         
         
         if selection == 1:
             for i in self.__Lplayers:
-                i['log'].append(f'{JA}`s turn has started ')
+                i['log'].append(f'{JA} turn has started ')
             
             
-            if self.__Lplayers[self.__turno]["coins"] >= 10:
+            if self.__Lplayers[self.__turn]["coins"] >= 10:
                 print("You have 10 or more coins, you must launch Coup")
-                c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
-                coup = Actions(self.__Lplayers[c-1],self.__Lplayers[self.__turno],self.__Maze).Golpe()
-                self.__Lplayers[self.__turno]['coins'] = coup[0]
+                c = Start_Game(self.__Maze,self.__Lplayers,self.__turn).chose_player()
+                coup = Actions(self.__Lplayers[c-1],self.__Lplayers[self.__turn],self.__Maze).Coup()
+                self.__Lplayers[self.__turn]['coins'] = coup[0]
                 self.__Lplayers[c-1] = coup[1]
                 for i in self.__Lplayers:
                     cp1 = self.__Lplayers[c-1]['name']
@@ -136,34 +172,34 @@ class Start_Game:
                 
             
            
-            selection = Start_Game(self.__Maze,self.__Lplayers,self.__turno).print_actions()
+            selection = Start_Game(self.__Maze,self.__Lplayers,self.__turn).print_actions()
            
             if selection == 1:
-                print('The player ',self.__Lplayers[self.__turno]['name'],"has bee used 'Income'(+1 coin)")
-                nd = Actions("",self.__Lplayers[self.__turno],self.__Maze).Ingreso()
-                self.__Lplayers[self.__turno]['coins'] = nd 
+                print('The player ',self.__Lplayers[self.__turn]['name'],"has bee used 'Income'(+1 coin)")
+                nd = Actions("",self.__Lplayers[self.__turn],self.__Maze).Income()
+                self.__Lplayers[self.__turn]['coins'] = nd 
                 for i in self.__Lplayers:
                     i['log'].append(f'{JA} has used Income ')
             
             
             if selection == 2:
-                print('Player ',self.__Lplayers[self.__turno]['name'],"has used 'Foreign Aid'")
+                print('Player ',self.__Lplayers[self.__turn]['name'],"has used 'Foreign Aid'")
                 for i in self.__Lplayers:
                     i['log'].append(f'{JA} has used Foreign Aid ')
                 d =False
                 if d == False:
-                    c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_c(self.__Lplayers[self.__turno])
+                    c = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_c(self.__Lplayers[self.__turn])
                     if c == False:
                         for i in self.__Lplayers:
                             i['log'].append(f'{JA} has executed Foreign Aid successfully ')
-                        nd = Actions("",self.__Lplayers[self.__turno],self.__Maze).Ayuda_Extrangera()
-                        self.__Lplayers[self.__turno]['coins'] = nd
+                        nd = Actions("",self.__Lplayers[self.__turn],self.__Maze).Foreign_aid()
+                        self.__Lplayers[self.__turn]['coins'] = nd
                     else:
                         for i in self.__Lplayers:
                             c1 = c['name']
                             i['log'].append(f'{c1} Blocked Foreign Aid from {JA}')
-                        print(self.__Lplayers[self.__turno]['name'],"has been blocked by",c["name"])
-                        d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(c)
+                        print(self.__Lplayers[self.__turn]['name'],"has been blocked by",c["name"])
+                        d = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_d(c)
 
                         if d == False:
                             print("Nobody challenged the Block ")
@@ -173,7 +209,7 @@ class Start_Game:
                                 d1 = d['name']
                                 c1 = c['name']
                                 i['log'].append(f'{d1} has Challenged {c1} Block ')
-                            a = Intervenciones(c,d,self.__Maze).Desafio('Duke')
+                            a = Interventions(c,d,self.__Maze).Challenge('Duke')
                             if a[3] == 0:
                                 for i in self.__Lplayers:
                                     c1 = c['name']
@@ -195,8 +231,8 @@ class Start_Game:
                                 self.__Lplayers[ind] = a[1]
                                 for i in self.__Lplayers:
                                     i['log'].append(f'{JA} has executed Foreign Aid successfully ')
-                                nd = Actions("",self.__Lplayers[self.__turno],self.__Maze).Ayuda_Extrangera()
-                                self.__Lplayers[self.__turno]['coins'] = nd
+                                nd = Actions("",self.__Lplayers[self.__turn],self.__Maze).Foreign_aid()
+                                self.__Lplayers[self.__turn]['coins'] = nd
                                 
 
     
@@ -204,18 +240,18 @@ class Start_Game:
            
            
             if selection == 3:
-                if self.__Lplayers[self.__turno]["coins"] >= 7:
+                if self.__Lplayers[self.__turn]["coins"] >= 7:
 
-                    c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
+                    c = Start_Game(self.__Maze,self.__Lplayers,self.__turn).chose_player()
                     for i in self.__Lplayers:
                         i['log'].append(f'{JA} has executed Coup ')
-                    coup = Actions(self.__Lplayers[c-1],self.__Lplayers[self.__turno],self.__Maze).Golpe()
-                    self.__Lplayers[self.__turno]['coins'] = coup[0]
+                    coup = Actions(self.__Lplayers[c-1],self.__Lplayers[self.__turn],self.__Maze).Coup()
+                    self.__Lplayers[self.__turn]['coins'] = coup[0]
                     self.__Lplayers[c-1] = coup[1]
                 else:
                     print("not enough coins to execute Coup")
                     input()
-                    Start_Game(self.__Maze,self.__Lplayers,self.__turno).game()
+                    Start_Game(self.__Maze,self.__Lplayers,self.__turn).game()
             
             
             
@@ -224,32 +260,32 @@ class Start_Game:
                 print(JA,"has used Tax")
                 for i in self.__Lplayers:
                     i['log'].append(f'{JA} has used Tax ')
-                d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(self.__Lplayers[self.__turno])
+                d = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_d(self.__Lplayers[self.__turn])
                 if d == False:
-                    nd = Actions(" ",self.__Lplayers[self.__turno],self.__Maze).Tax()
-                    self.__Lplayers[self.__turno]['coins'] = nd
+                    nd = Actions(" ",self.__Lplayers[self.__turn],self.__Maze).Tax()
+                    self.__Lplayers[self.__turn]['coins'] = nd
                     for i in self.__Lplayers:
                         i['log'].append(f'{JA} has executed Tax successfully ')
                 else:
                     for i in self.__Lplayers:
                         d1 = d['name']
                         i['log'].append(f'{d1} challenged {JA} ')
-                    a = Intervenciones(self.__Lplayers[self.__turno],d,self.__Maze).Desafio('Duke')
+                    a = Interventions(self.__Lplayers[self.__turn],d,self.__Maze).Challenge('Duke')
                     if a[3] == 0:
                         for i in self.__Lplayers:
                             i['log'].append(f'{JA} wins challenge and executed Tax successfully ')
                         self.__Maze = a[2]
-                        self.__Lplayers[self.__turno] = a[0]
+                        self.__Lplayers[self.__turn] = a[0]
                         ind = self.__Lplayers.index(d) 
                         self.__Lplayers[ind] = a[1]
-                        nd = Actions("",self.__Lplayers[self.__turno],self.__Maze).Tax()
-                        self.__Lplayers[self.__turno]['coins'] = nd
+                        nd = Actions("",self.__Lplayers[self.__turn],self.__Maze).Tax()
+                        self.__Lplayers[self.__turn]['coins'] = nd
                     else:
                         for i in self.__Lplayers:
                             d1 = d['name']
                             i['log'].append(f'{d1} wins the challenge Tax not executed ')
                         self.__Maze = a[2]
-                        self.__Lplayers[self.__turno] = a[0]
+                        self.__Lplayers[self.__turn] = a[0]
                         ind = self.__Lplayers.index(d) 
                         self.__Lplayers[ind] = a[1]
 
@@ -258,28 +294,29 @@ class Start_Game:
             if selection == 5:
 
 
-                if self.__Lplayers[self.__turno]["coins"] >= 3:
+                if self.__Lplayers[self.__turn]["coins"] >= 3:
                     print(JA,"has used Assassinate")
                     for i in self.__Lplayers:
                         i['log'].append(f'{JA} has used Assessinate ')
-                    self.__Lplayers[self.__turno]['coins'] += -3
-                    d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(self.__Lplayers[self.__turno])
+                    self.__Lplayers[self.__turn]['coins'] += -3
+                    d = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_d(self.__Lplayers[self.__turn])
                     if d == False:
-                        c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_c(self.__Lplayers[self.__turno])
+                        c = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_c(self.__Lplayers[self.__turn])
                         if c == False:
                             
-                            cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
+                            cp = Start_Game(self.__Maze,self.__Lplayers,self.__turn).chose_player()
 
                             for i in self.__Lplayers:
-                                i['log'].append(f'{JA} executed Assessinate on {self.__Lplayers[cp-1]} ')
-                            asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
+                                ff=self.__Lplayers[cp-1]['name']
+                                i['log'].append(f'{JA} executed Assessinate on {ff} ')
+                            asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turn],self.__Maze).Assassination()
                             self.__Lplayers[cp-1] = asse[1]
                         else:
                             for i in self.__Lplayers:
                                 c1 = c['name']
                                 i['log'].append(f'{c1} has blocked Assassination ')
-                            print(self.__Lplayers[self.__turno]['name'],"has been blocked by",c["name"])
-                            d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(c)
+                            print(self.__Lplayers[self.__turn]['name'],"has been blocked by",c["name"])
+                            d = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_d(c)
                             if d == False:
                                 print("Assassination has been blocked")
                                 
@@ -288,8 +325,8 @@ class Start_Game:
                                 for i in self.__Lplayers:
                                     d1 = d['name']
                                     c1 = c['name']
-                                    i['log'].append(f'{d1} challenged {c1}`s block ')
-                                a = Intervenciones(c,d,self.__Maze).Desafio('Contessa')
+                                    i['log'].append(f'{d1} challenged {c1} block ')
+                                a = Interventions(c,d,self.__Maze).Challenge('Contessa')
                                 if a[3] == 0:
                                     for i in self.__Lplayers:
                                         c1 = c['name']
@@ -306,31 +343,32 @@ class Start_Game:
                                     self.__Lplayers[ind] = a[0]
                                     ind = self.__Lplayers.index(d) 
                                     self.__Lplayers[ind] = a[1]
-                                    cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
-                                    asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
+                                    cp = Start_Game(self.__Maze,self.__Lplayers,self.__turn).chose_player()
+                                    asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turn],self.__Maze).Assassination()
                                     for i in self.__Lplayers:
                                         d1 = d['name']
-                                        i['log'].append(f'{d1} wins challenge and {JA} Assassinates {self.__Lplayers[cp-1]}')
+                                        ff=self.__Lplayers[cp-1]['name']
+                                        i['log'].append(f'{d1} wins challenge and {JA} Assassinates {ff}')
                                     self.__Lplayers[cp-1] = asse[1]
                     else: 
                         for i in self.__Lplayers:
                             d1 = d['name']
                             i['log'].append(f'{d1} challenges Assassination ')
-                        a = Intervenciones(self.__Lplayers[self.__turno],d,self.__Maze).Desafio('Assassin')
+                        a = Interventions(self.__Lplayers[self.__turn],d,self.__Maze).Challenge('Assassin')
                         if a[3] == 0:
                             for i in self.__Lplayers:
                                 i['log'].append(f'{JA} wins challenge')
                             self.__Maze = a[2]
-                            self.__Lplayers[self.__turno] = a[0]
+                            self.__Lplayers[self.__turn] = a[0]
                             ind = self.__Lplayers.index(d) 
                             self.__Lplayers[ind] = a[1]
-                            c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_c(self.__Lplayers[self.__turno])
+                            c = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_c(self.__Lplayers[self.__turn])
                             if c!= False:
                                 for i in self.__Lplayers:
                                     c1 = c['name']
                                     i['log'].append(f'{c1} blocks Assassination ')
-                                print(self.__Lplayers[self.__turno]['name'],"has been blocked by",c["name"])
-                                d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(c)
+                                print(self.__Lplayers[self.__turn]['name'],"has been blocked by",c["name"])
+                                d = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_d(c)
                                 if d == False:
                                     print("nobody challenges the block")
                                     
@@ -338,8 +376,8 @@ class Start_Game:
                                     for i in self.__Lplayers:
                                         d1 = d['name']
                                         c1 = c['name']
-                                        i['log'].append(f'{d1} challenges {c1}`s block ')
-                                    a = Intervenciones(c,d,self.__Maze).Desafio('Contessa')
+                                        i['log'].append(f'{d1} challenges {c1} block ')
+                                    a = Interventions(c,d,self.__Maze).Challenge('Contessa')
                                     if a[3] == 0:
                                         for i in self.__Lplayers:
                                             c1 = c['name']
@@ -356,30 +394,32 @@ class Start_Game:
                                         self.__Lplayers[ind] = a[0]
                                         ind = self.__Lplayers.index(d) 
                                         self.__Lplayers[ind] = a[1]
-                                        cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
+                                        cp = Start_Game(self.__Maze,self.__Lplayers,self.__turn).chose_player()
                                         for i in self.__Lplayers:
                                             d1 = d['name']
-                                            i['log'].append(f'{d1} wins the challenge, {JA} assassinated {self.__Lplayers[cp-1]}')
-                                        asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
+                                            ff=self.__Lplayers[cp-1]['name']
+                                            i['log'].append(f'{d1} wins the challenge, {JA} assassinated {ff}')
+                                        asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turn],self.__Maze).Assassination()
                                         self.__Lplayers[cp-1] = asse[1]
                             else:
-                                cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
-                                asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Asesino()
+                                cp = Start_Game(self.__Maze,self.__Lplayers,self.__turn).chose_player()
+                                asse = Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turn],self.__Maze).Assassination()
                                 for i in self.__Lplayers:
-                                    i['log'].append(f'{JA} assessinated {self.__Lplayers[cp-1]} ')
+                                    ff=self.__Lplayers[cp-1]['name']
+                                    i['log'].append(f'{JA} assessinated {ff} ')
                                 self.__Lplayers[cp-1] = asse[1]
                         else:
                             for i in self.__Lplayers:
                                 d1 = d['name']
                                 i['log'].append(f'{d1} wins challenge ')
                             self.__Maze = a[2]
-                            self.__Lplayers[self.__turno] = a[0]
+                            self.__Lplayers[self.__turn] = a[0]
                             ind = self.__Lplayers.index(d) 
                             self.__Lplayers[ind] = a[1]
                 else:
                     print("Not enough coins to use assessination, press any key to go back")
                     input()
-                    Start_Game(self.__Maze,self.__Lplayers,self.__turno).game()
+                    Start_Game(self.__Maze,self.__Lplayers,self.__turn).game()
 
 
 
@@ -389,23 +429,23 @@ class Start_Game:
            
             if selection == 6:
                 print(JA,"has used Steal")
-                d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(self.__Lplayers[self.__turno])
+                d = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_d(self.__Lplayers[self.__turn])
                 if d == False:
-                    c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_c(self.__Lplayers[self.__turno])
+                    c = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_c(self.__Lplayers[self.__turn])
                     if c == False:
-                        cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
+                        cp = Start_Game(self.__Maze,self.__Lplayers,self.__turn).chose_player()
                         for i in self.__Lplayers:
                             cp1 = self.__Lplayers[cp-1]['name']
                             i['log'].append(f'{JA} stealed from {cp1}')
-                        nd=Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Extorison()
-                        self.__Lplayers[self.__turno]= nd[1]
+                        nd=Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turn],self.__Maze).Steal()
+                        self.__Lplayers[self.__turn]= nd[1]
                         self.__Lplayers[cp-1] = nd[0]
                     else:
                         for i in self.__Lplayers:
                             c1 = c['name']
                             i['log'].append(f'{c1} blocks Steal ')
-                        print(self.__Lplayers[self.__turno]['name']," has been blocked by ",c["name"])
-                        d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(c)
+                        print(self.__Lplayers[self.__turn]['name']," has been blocked by ",c["name"])
+                        d = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_d(c)
                         if d == False:
                             print("nobody challenges the block")
                             pass
@@ -414,8 +454,8 @@ class Start_Game:
                                 d1 = d['name']
                                 c1 = c['name']
                                 i['log'].append(f'{d1} challenges {c1} ')
-                            a = Intervenciones(c,d,self.__Maze).Desafio_esp()
-                            if a[3] == 0: #gana c
+                            a = Interventions(c,d,self.__Maze).Special_challenge()
+                            if a[3] == 0: 
                                 for i in self.__Lplayers:
                                     c1 = c['name']
                                     i['log'].append(f'{c1} wins challenge, Stealing not executed')
@@ -431,33 +471,33 @@ class Start_Game:
                                 self.__Lplayers[ind] = a[0]
                                 ind = self.__Lplayers.index(d) 
                                 self.__Lplayers[ind] = a[1]
-                                cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
+                                cp = Start_Game(self.__Maze,self.__Lplayers,self.__turn).chose_player()
                                 for i in self.__Lplayers:
                                     d1 = d['name']
                                     cp1 = self.__Lplayers[cp-1]['name']
                                     i['log'].append(f'{d1} wins the challenge, {JA} steals from {cp1} ')
-                                nd=Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Extorison()
-                                self.__Lplayers[self.__turno]= nd[1]
+                                nd=Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turn],self.__Maze).Steal()
+                                self.__Lplayers[self.__turn]= nd[1]
                                 self.__Lplayers[cp-1] = nd[0]
                 else: 
                     for i in self.__Lplayers:
                         d1 = d['name']
                         i['log'].append(f'{d1} challenged {JA} ')
-                    a = Intervenciones(self.__Lplayers[self.__turno],d,self.__Maze).Desafio_esp()                        
+                    a = Interventions(self.__Lplayers[self.__turn],d,self.__Maze).Special_challenge()                        
                     if a[3] == 0: 
                         for i in self.__Lplayers:
                             i['log'].append(f'{JA} wins challenge ')
                         self.__Maze = a[2]
-                        self.__Lplayers[self.__turno] = a[0]
+                        self.__Lplayers[self.__turn] = a[0]
                         ind = self.__Lplayers.index(d) 
                         self.__Lplayers[ind] = a[1]
-                        c = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_c(self.__Lplayers[self.__turno])
+                        c = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_c(self.__Lplayers[self.__turn])
                         if c != False: 
                             for i in self.__Lplayers:
                                 c1 = c['name']
                                 i['log'].append(f'{c1} blocked Steal ')
-                            print(self.__Lplayers[self.__turno]['name'],"has been blocked by ",c["name"])
-                            d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(c)
+                            print(self.__Lplayers[self.__turn]['name'],"has been blocked by ",c["name"])
+                            d = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_d(c)
                             if d == False:
                                 print("nobody challenges the block")
                                 pass
@@ -465,8 +505,8 @@ class Start_Game:
                                 for i in self.__Lplayers:
                                     d1 = d['name']
                                     c1 = c['name']
-                                    i['log'].append(f'{d1} challenged {c1}`s block ')
-                                a = Intervenciones(c,d,self.__Maze).Desafio_esp()
+                                    i['log'].append(f'{d1} challenged {c1} block ')
+                                a = Interventions(c,d,self.__Maze).Special_challenge()
                                 if a[3] == 0:
                                     for i in self.__Lplayers:
                                         c1 = c['name']
@@ -483,29 +523,29 @@ class Start_Game:
                                     self.__Lplayers[ind] = a[0]
                                     ind = self.__Lplayers.index(d) 
                                     self.__Lplayers[ind] = a[1]
-                                    cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
+                                    cp = Start_Game(self.__Maze,self.__Lplayers,self.__turn).chose_player()
                                     for i in self.__Lplayers:
                                         d1 = d['name']
                                         cp1 = self.__Lplayers[cp-1]['name']
                                         i['log'].append(f'{d1} wins challenge, {JA} steals from {cp1} ')
-                                    nd=Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Extorison()
-                                    self.__Lplayers[self.__turno]= nd[1]
+                                    nd=Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turn],self.__Maze).Steal()
+                                    self.__Lplayers[self.__turn]= nd[1]
                                     self.__Lplayers[cp-1] = nd[0]
                         else:
 
-                            cp = Start_Game(self.__Maze,self.__Lplayers,self.__turno).chose_player()
-                            nd=Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turno],self.__Maze).Extorison()
+                            cp = Start_Game(self.__Maze,self.__Lplayers,self.__turn).chose_player()
+                            nd=Actions(self.__Lplayers[cp-1],self.__Lplayers[self.__turn],self.__Maze).Steal()
                             for i in self.__Lplayers:
                                 cp1 = self.__Lplayers[cp-1]['name']
                                 i['log'].append(f'{JA} steals from {cp1} ')
-                            self.__Lplayers[self.__turno]= nd[1]
+                            self.__Lplayers[self.__turn]= nd[1]
                             self.__Lplayers[cp-1] = nd[0]
                     else:
                         for i in self.__Lplayers:
                             d1 = d['name']
                             i['log'].append(f'{d1} wins challenge, Steal not executed ')
                         self.__Maze = a[2]
-                        self.__Lplayers[self.__turno] = a[0]
+                        self.__Lplayers[self.__turn] = a[0]
                         ind = self.__Lplayers.index(d) 
                         self.__Lplayers[ind] = a[1]
             
@@ -514,52 +554,56 @@ class Start_Game:
                 print(JA," used Exchange")
                 for i in self.__Lplayers:
                     i['log'].append(f'{JA} has used Exchange ')
-                d = Start_Game(self.__Maze,self.__Lplayers,self.__turno).pregunta_d(self.__Lplayers[self.__turno])
+                d = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_d(self.__Lplayers[self.__turn])
                 if d == 0:
-                    cambio = Actions(" ",self.__Lplayers[self.__turno],self.__Maze).Cambio()
-                    self.__Lplayers[self.__turno] = cambio[0]
-                    self.__Maze = cambio[1]
+                    change = Actions(" ",self.__Lplayers[self.__turn],self.__Maze).Exchange()
+                    self.__Lplayers[self.__turn] = change[0]
+                    self.__Maze = change[1]
                 else:
                     for i in self.__Lplayers:
                         d1 = d['name']
                         i['log'].append(f'{d1} challenges {JA} ')
-                    a = Intervenciones(self.__Lplayers[self.__turno],d,self.__Maze).Desafio('Ambassador')
+                    a = Interventions(self.__Lplayers[self.__turn],d,self.__Maze).Challenge('Ambassador')
                     if a[3] == 0:
                         for i in self.__Lplayers:
                             i['log'].append(f'{JA} wins the challenge ')
                         self.__Maze = a[2]
-                        self.__Lplayers[self.__turno] = a[0]
+                        self.__Lplayers[self.__turn] = a[0]
                         ind = self.__Lplayers.index(d) 
                         self.__Lplayers[ind] = a[1]
-                        cambio = Actions('',self.__Lplayers[self.__turno],self.__Maze).Cambio()
-                        self.__Lplayers[self.__turno] = cambio[0]
-                        self.__Maze = cambio[1]
+                        change = Actions('',self.__Lplayers[self.__turn],self.__Maze).Exchange()
+                        self.__Lplayers[self.__turn] = change[0]
+                        self.__Maze = change[1]
                     else:
                         for i in self.__Lplayers:
                             d1 = d['name']
                             i['log'].append(f'{d1} wins the challenge ')
                         self.__Maze = a[2]
-                        self.__Lplayers[self.__turno] = a[0]
+                        self.__Lplayers[self.__turn] = a[0]
                         ind = self.__Lplayers.index(d) 
                         self.__Lplayers[ind] = a[1]
 
-            self.__Lplayers[self.__turno]['log']=[]
-            self.__turno += 1
-            if self.__turno > len(self.__Lplayers)-1:
-                self.__turno = 0
-            while self.__Lplayers[self.__turno]['influence'] <= 0:
-                self.__turno += 1
-                if self.__turno > len(self.__Lplayers)-1:
-                    self.__turno = 0
-            Start_Game(self.__Maze,self.__Lplayers,self.__turno).game()
+            self.__Lplayers[self.__turn]['log']=[]
+            self.__turn += 1
+            if self.__turn > len(self.__Lplayers)-1:
+                self.__turn = 0
+            while self.__Lplayers[self.__turn]['influence'] <= 0:
+                self.__turn += 1
+                if self.__turn > len(self.__Lplayers)-1:
+                    self.__turn = 0
+            Start_Game(self.__Maze,self.__Lplayers,self.__turn).game()
 
 
         if selection == 2:
-            print(self.__Lplayers[self.__turno]["cards"])
-            Start_Game(self.__Maze,self.__Lplayers,self.__turno).game()
+            print(self.__Lplayers[self.__turn]["cards"])
+            print('press any key to continue')
+            input()
+            Start_Game(self.__Maze,self.__Lplayers,self.__turn).game()
         
 
         if selection == 3:
-            print(self.__Lplayers[self.__turno]["log"])
-            Start_Game(self.__Maze,self.__Lplayers,self.__turno).game()
+            for i in self.__Lplayers[self.__turn]["log"]:
+                print(i)
+            
+            Start_Game(self.__Maze,self.__Lplayers,self.__turn).game()
 
