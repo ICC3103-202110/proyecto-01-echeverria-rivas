@@ -6,6 +6,23 @@ class Brain:
         self.__Deck = Deck
         self.__dictionary = dictionary
 
+    @property
+    def dictionary(self):
+        return self.__dictionary
+
+    @dictionary.setter
+    def dictionary(self,value):
+        self.__dictionary['coins'] = value
+        if self.__dictionary['coins'] < 0:
+            self.__dictionary['coins'] = 0
+
+    @dictionary.setter
+    def dictionary(self,value):
+        self.__dictionary['influence'] = value
+        if self.__dictionary['influence'] < 0:
+            self.__dictionary['influence'] = 0
+
+
     def Change_coins (self,operation,amount):
         if operation=='+':
             self.__dictionary['coins']+=int(amount)

@@ -80,7 +80,7 @@ class Start_Game:
             if int(i['influence']) != 0:
                 LV.append(i)
         if len(LV) == 1:
-            print(LV[0]["name"],'WINS THE GAME') 
+            print('\n','------------------------',LV[0]["name"],'WINS THE GAME','------------------------') 
             sys.exit()
         print("Chose a player to executed the action:")
         
@@ -145,7 +145,7 @@ class Start_Game:
             if int(i['influence']) != 0:
                 LV.append(i)
         if len(LV) == 1:
-            print(LV[0]["name"],'WINS THE GAME') 
+            print('\n','------------------------',LV[0]["name"],'WINS THE GAME','------------------------') 
             sys.exit()
 
         JA = self.__Lplayers[self.__turn]["name"]
@@ -429,6 +429,8 @@ class Start_Game:
            
             if selection == 6:
                 print(JA,"has used Steal")
+                for i in self.__Lplayers:
+                    i['log'].append(f'{JA} has used Steal ')
                 d = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_d(self.__Lplayers[self.__turn])
                 if d == False:
                     c = Start_Game(self.__Maze,self.__Lplayers,self.__turn).Question_c(self.__Lplayers[self.__turn])
